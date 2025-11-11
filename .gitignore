@@ -1,0 +1,10 @@
+# Arquivos compilados do Java
+*.class
+
+# Pastas de build
+bin/
+
+# Arquivos de IDE
+.idea/
+*.iml
+.vscode/
