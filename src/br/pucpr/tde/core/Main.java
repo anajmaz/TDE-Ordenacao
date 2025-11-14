@@ -19,8 +19,6 @@ public class Main {
         System.out.println("Iniciando medição de tempo dos algoritmos...");
         System.out.println("--------------------------------------------------------------------------");
 
-        // Loop para testar todos os 9 arquivos
-        // (Usamos um loop 'for' padrão, pois não podemos usar 'for-each' em arrays nativos)
         for (int i = 0; i < ARQUIVOS.length; i++) {
             String nomeArquivo = ARQUIVOS[i];
             String caminhoCompleto = PATH_DADOS + nomeArquivo;
@@ -29,28 +27,53 @@ public class Main {
             Vetor dadosOriginais = LeitorCSV.lerArquivo(caminhoCompleto);
             if (dadosOriginais.size() == 0) {
                 System.err.println("Falha ao ler o arquivo: " + nomeArquivo);
-                continue; // Pula para o próximo arquivo
+                continue;
             }
 
-            // --- Teste do Bubble Sort (Trabalho do Integrante 1) ---
-
-            // 2. Faz uma CÓPIA dos dados para não estragar o original
+            /* ============================================================
+               BUBBLE SORT (Integrante 1)
+               ============================================================ */
             Vetor copiaBubble = dadosOriginais.copy();
 
-            // 3. Mede o tempo
-            long inicio = System.nanoTime();
-            Algoritmos.bubbleSort(copiaBubble); // Executa o algoritmo
-            long fim = System.nanoTime();
-            long duracaoNs = fim - inicio; // Tempo em nanosegundos
+            long inicioBubble = System.nanoTime();
+            Algoritmos.bubbleSort(copiaBubble);
+            long fimBubble = System.nanoTime();
 
-            // 4. Imprime o resultado
-            System.out.printf("Arquivo: %-22s | Algoritmo: Bubble Sort   | Tempo (ns): %d\n", nomeArquivo, duracaoNs);
+            long duracaoBubble = fimBubble - inicioBubble;
+            System.out.printf("Arquivo: %-22s | Algoritmo: Bubble Sort   | Tempo (ns): %d\n",
+                    nomeArquivo, duracaoBubble);
 
-            // --- ESPAÇO PARA OS OUTROS ALGORITMOS ---
-            // O Integrante 3 vai adicionar os testes do Insertion e Quick Sort aqui
+
+            /* ============================================================
+               INSERTION SORT (Integrante 2)
+               ============================================================ */
+            Vetor copiaInsertion = dadosOriginais.copy();
+
+            long inicioInsertion = System.nanoTime();
+            Algoritmos.insertionSort(copiaInsertion);
+            long fimInsertion = System.nanoTime();
+
+            long duracaoInsertion = fimInsertion - inicioInsertion;
+            System.out.printf("Arquivo: %-22s | Algoritmo: Insertion Sort | Tempo (ns): %d\n",
+                    nomeArquivo, duracaoInsertion);
+
+
+            /* ============================================================
+               QUICK SORT (Integrante 2)
+               ============================================================ */
+            Vetor copiaQuick = dadosOriginais.copy();
+
+            long inicioQuick = System.nanoTime();
+            Algoritmos.quickSort(copiaQuick);
+            long fimQuick = System.nanoTime();
+
+            long duracaoQuick = fimQuick - inicioQuick;
+            System.out.printf("Arquivo: %-22s | Algoritmo: Quick Sort     | Tempo (ns): %d\n",
+                    nomeArquivo, duracaoQuick);
+
+            System.out.println("--------------------------------------------------------------------------");
         }
 
-        System.out.println("--------------------------------------------------------------------------");
         System.out.println("Medição finalizada.");
     }
 }
